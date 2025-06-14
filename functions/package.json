@@ -1,12 +1,17 @@
-const functions = require('firebase-functions');
-const admin = require('firebase-admin');
-admin.initializeApp();
-
-exports.addHealthData = functions.https.onRequest(async (req, res) => {
-  if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
-  // Optionally, verify Firebase Auth token here
-
-  const { userId, heartRate, timestamp } = req.body;
-  await admin.firestore().collection('healthData').add({ userId, heartRate, timestamp });
-  res.status(200).send({ success: true });
-});
+{
+  "name": "kid-safety-watch-backend",
+  "description": "Backend for KidSafetyWatch app using GCP (Firebase Functions + Firestore)",
+  "main": "index.js",
+  "scripts": {
+    "start": "firebase emulators:start --only functions"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.0.0",
+    "firebase-functions": "^4.0.0",
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "engines": {
+    "node": "20"
+  }
+}
